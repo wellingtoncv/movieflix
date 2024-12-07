@@ -1,8 +1,10 @@
 package com.devsuperior.movieflix.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +36,9 @@ public class Movie {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
-
+    
+   // Set<Genre> genres = new HashSet<>();
+    
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews = new ArrayList<>();
 
@@ -100,10 +104,6 @@ public class Movie {
         this.synopsis = synopsis;
     }
 
-    public Genre getGenre() {
-        return genre;
-    }
-
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
@@ -111,6 +111,13 @@ public class Movie {
     public List<Review> getReviews() {
         return reviews;
     }
+    
+    /*
+    public Set<Genre> getGenres() {
+		return genres;
+	}
+     */
+
 
     @Override
     public boolean equals(Object o) {
@@ -124,5 +131,6 @@ public class Movie {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 
 }

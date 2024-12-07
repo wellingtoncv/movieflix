@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,32 +31,23 @@ public class MovieCardService {
 	
 	
 	@Transactional(readOnly = true)
-	public Page<MovieProjection> findAllPaged(String title, String genreId, Pageable pageable) {
+	public Page<MovieCardDTO> findAllPaged(String title, String genreId, Pageable pageable) {
 		
 		List<Long> genreIds = Arrays.asList();
 		if (!"0".equals(genreId)) {
 			genreIds = Arrays.asList(genreId.split(",")).stream().map(Long::parseLong).toList();
 		}
 		
-		return repository.searchMovies(genreIds, title, pageable);
+		Page<MovieProjection> page = repository.searchMovies(genreIds, title, pageable);
+		List<Long> movieIds = page.map(x -> x.getId()).toList();
+		
+		List<Movie> entities = repository.searchMoviesWithGenres(movieIds);
+		List<MovieCardDTO> dtos = entities.stream().map(p -> new MovieCardDTO(p, p.getGenres())).toList();
+		
+		Page<MovieCardDTO> pageDto = new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
+		return pageDto;
+		
 	}	
 		
 }
-		/*
-		List<Long> genreIds = Arrays.asList();
-		if (!"0".equals(genreId)) {
-			genreIds = Arrays.asList(genreId.split(",")).stream().map(Long::parseLong).toList();
-		}
-
-		Page<MovieProjection> page = repository.searchMovies(genreIds, title, pageable);
-		List<Long> movieIds = page.map(x -> x.getId()).toList();
-
-		List<Movie> entities = repository.searchMoviesWithGenres(movieIds);
-		entities = (List<Movie>) Utils.replace(page.getContent(), entities);
-
-		List<MovieCardDTO> dtos = entities.stream().map(p -> new MovieCardDTO(p, p.getGenres())).toList();
-
-		Page<MovieCardDTO> pageDto = new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
-		return pageDto;
-		*/
 

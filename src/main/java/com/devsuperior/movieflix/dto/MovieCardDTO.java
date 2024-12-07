@@ -13,6 +13,8 @@ public class MovieCardDTO {
 	private Integer year;
 	private String imgUrl;
 	private Object genres;
+	
+	
 
 	public MovieCardDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
 		this.id = id;
@@ -23,7 +25,6 @@ public class MovieCardDTO {
 	}
 
 	public MovieCardDTO(Movie entity) {
-
 		id = entity.getId();
 		title = entity.getTitle();
 		subTitle = entity.getSubTitle();
@@ -31,13 +32,13 @@ public class MovieCardDTO {
 		imgUrl = entity.getImgUrl();
 
 	}
-/*
+
 	public MovieCardDTO(Movie entity, Set<Genre> genres) {
 		this(entity);
 		genres.forEach(cat -> this.genres.add(new GenreDTO(cat)));
 
 	}
-*/
+
 	public Long getId() {
 		return id;
 	}

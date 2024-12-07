@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.movieflix.dto.MovieCardDTO;
-import com.devsuperior.movieflix.projections.MovieProjection;
 import com.devsuperior.movieflix.services.MovieCardService;
 
 @RestController
@@ -31,11 +30,11 @@ public class MovieCardController {
 
 	@PreAuthorize("hasAnyRole('ROLE_VISITOR', 'ROLE_MEMBER')")
 	@GetMapping
-	public ResponseEntity<Page<MovieProjection>> findAll(
+	public ResponseEntity<Page<MovieCardDTO>> findAll(
 			@RequestParam(value = "title", defaultValue = "") String title,
 			@RequestParam(value = "genreId", defaultValue = "0") String genreId,
 			Pageable pageable) {
-		Page<MovieProjection> list = service.findAllPaged(title, genreId, pageable);
+		Page<MovieCardDTO> list = service.findAllPaged(title, genreId, pageable);
 		return ResponseEntity.ok().body(list);
 	}
 

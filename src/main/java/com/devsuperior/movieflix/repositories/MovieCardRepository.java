@@ -30,8 +30,8 @@ public interface MovieCardRepository extends JpaRepository<Movie, Long> {
 			) AS tb_result			
 			""" )
 	Page<MovieProjection> searchMovies(List<Long> genreId, String title,Pageable pageable);
-	/*
+	
 	@Query("SELECT obj FROM Movie obj JOIN FETCH obj.genres WHERE obj.id IN:movieIds")
 	List<Movie> searchMoviesWithGenres(List<Long> movieIds);
-	*/
+	
 }

@@ -37,7 +37,7 @@ public class Movie {
     @JoinColumn(name = "genre_id")
     private Genre genre;
     
-   // Set<Genre> genres = new HashSet<>();
+   Set<Genre> genres = new HashSet<>();
     
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews = new ArrayList<>();
@@ -112,11 +112,10 @@ public class Movie {
         return reviews;
     }
     
-    /*
+   
     public Set<Genre> getGenres() {
 		return genres;
 	}
-     */
 
 
     @Override

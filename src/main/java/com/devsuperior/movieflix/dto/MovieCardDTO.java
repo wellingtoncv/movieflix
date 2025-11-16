@@ -1,5 +1,6 @@
 package com.devsuperior.movieflix.dto;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.devsuperior.movieflix.entities.Genre;
@@ -12,7 +13,7 @@ public class MovieCardDTO {
 	private String subTitle;
 	private Integer year;
 	private String imgUrl;
-	private Object genres;
+	private Set<GenreDTO> genres;
 	
 	
 
@@ -35,8 +36,11 @@ public class MovieCardDTO {
 
 	public MovieCardDTO(Movie entity, Set<Genre> genres) {
 		this(entity);
-		genres.forEach(cat -> this.genres.add(new GenreDTO(cat)));
+        
+        // ✅ CORREÇÃO: Inicializa o campo 'genres' antes de usá-lo
+        this.genres = new HashSet<>(); 
 
+		genres.forEach(cat -> this.genres.add(new GenreDTO(cat)));
 	}
 
 	public Long getId() {
@@ -77,5 +81,9 @@ public class MovieCardDTO {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	
+	public Set<GenreDTO> getGenres() {
+        return genres;
 	}
 }

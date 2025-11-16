@@ -37,7 +37,6 @@ public class Movie {
     @JoinColumn(name = "genre_id")
     private Genre genre;
     
-   Set<Genre> genres = new HashSet<>();
     
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews = new ArrayList<>();
@@ -113,11 +112,6 @@ public class Movie {
     }
     
    
-    public Set<Genre> getGenres() {
-		return genres;
-	}
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

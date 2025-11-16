@@ -42,7 +42,8 @@ public class MovieCardService {
 		List<Long> movieIds = page.map(x -> x.getId()).toList();
 		
 		List<Movie> entities = repository.searchMoviesWithGenres(movieIds);
-		List<MovieCardDTO> dtos = entities.stream().map(p -> new MovieCardDTO(p, p.getGenres())).toList();
+		
+		List<MovieCardDTO> dtos = entities.stream().map(p -> new MovieCardDTO(p)).toList();
 		
 		Page<MovieCardDTO> pageDto = new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
 		return pageDto;

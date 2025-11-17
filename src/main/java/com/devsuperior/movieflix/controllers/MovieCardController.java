@@ -27,7 +27,14 @@ public class MovieCardController {
 		MovieCardDTO dto = service.findByid(id);
 		return ResponseEntity.ok().body(dto);
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ROLE_VISITOR', 'ROLE_MEMBER')")
+	@GetMapping(value = "/{id}/reviews")
+	public ResponseEntity<MovieCardDTO> findByidReviews(@PathVariable Long id) {
+		MovieCardDTO dto = service.findByidReviews(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
 	@PreAuthorize("hasAnyRole('ROLE_VISITOR', 'ROLE_MEMBER')")
 	@GetMapping
 	public ResponseEntity<Page<MovieCardDTO>> findAll(

@@ -30,6 +30,19 @@ public class MovieCardService {
 		return new MovieCardDTO(entity);
 	}
 	
+	@Transactional(readOnly = true)
+	public MovieCardDTO findByidReviews(Long id) {
+		Optional<Movie> obj = repository.findById(id);
+		Movie entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+		return new MovieCardDTO(entity, entity.getReviews());
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<MovieCardDTO> findAllPaged(Pageable pageable) {
+		Page<Movie> list = repository.findAll(pageable);
+		return list.map(x -> new MovieCardDTO(x)); // utilizando a função de alta ordem e lambida
+	}
+	
 	
 	@Transactional(readOnly = true)
 	public Page<MovieCardDTO> findAllPaged(String title, String genreId, Pageable pageable) {

@@ -1,12 +1,15 @@
 package com.devsuperior.movieflix.dto;
 
-import java.util.HashSet;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
+import com.devsuperior.movieflix.entities.Review;
 
-public class MovieCardDTO {
+public class MovieCardDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String title;
@@ -15,7 +18,7 @@ public class MovieCardDTO {
 	private String imgUrl;
 	private Set<GenreDTO> genres;
 	
-	
+	private List<ReviewDTO> reviews = new ArrayList<>();
 
 	public MovieCardDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
 		this.id = id;
@@ -24,25 +27,20 @@ public class MovieCardDTO {
 		this.year = year;
 		this.imgUrl = imgUrl;
 	}
-
+	
 	public MovieCardDTO(Movie entity) {
 		id = entity.getId();
 		title = entity.getTitle();
 		subTitle = entity.getSubTitle();
 		year = entity.getYear();
 		imgUrl = entity.getImgUrl();
-
 	}
-
-	public MovieCardDTO(Movie entity, Set<Genre> genres) {
+	
+	 public MovieCardDTO(Movie entity, Set<Review> reviews) {
 		this(entity);
-        
-        // ✅ CORREÇÃO: Inicializa o campo 'genres' antes de usá-lo
-        this.genres = new HashSet<>(); 
-
-		genres.forEach(cat -> this.genres.add(new GenreDTO(cat)));
+		reviews.forEach(cat -> this.reviews.add(new ReviewDTO(cat)));
 	}
-
+	 
 	public Long getId() {
 		return id;
 	}
@@ -86,4 +84,14 @@ public class MovieCardDTO {
 	public Set<GenreDTO> getGenres() {
         return genres;
 	}
+	
+	public List<ReviewDTO> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<ReviewDTO> reviews) {
+		this.reviews = reviews;
+	}
+	
+	
 }

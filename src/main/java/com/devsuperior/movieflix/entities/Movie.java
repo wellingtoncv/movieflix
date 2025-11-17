@@ -1,8 +1,7 @@
 package com.devsuperior.movieflix.entities;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,8 +17,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_movie")
-public class Movie {
-
+public class Movie implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +39,7 @@ public class Movie {
     
     
     @OneToMany(mappedBy = "movie")
-    private List<Review> reviews = new ArrayList<>();
+    Set<Review> reviews = new HashSet<>();
 
     public Movie(){
 
@@ -107,9 +107,15 @@ public class Movie {
         this.genre = genre;
     }
 
+    /*
     public List<Review> getReviews() {
         return reviews;
     }
+    */
+    
+    public Set<Review> getReviews() {
+		return reviews;
+	}
     
    
     @Override

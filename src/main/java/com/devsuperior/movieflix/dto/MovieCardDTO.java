@@ -16,7 +16,7 @@ public class MovieCardDTO implements Serializable {
 	private String subTitle;
 	private Integer year;
 	private String imgUrl;
-	private Set<GenreDTO> genres;
+	//private Set<GenreDTO> genres;
 	
 	private List<ReviewDTO> reviews = new ArrayList<>();
 
@@ -81,9 +81,11 @@ public class MovieCardDTO implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 	
+	/*
 	public Set<GenreDTO> getGenres() {
         return genres;
 	}
+	*/
 	
 	public List<ReviewDTO> getReviews() {
 		return reviews;

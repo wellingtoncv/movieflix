@@ -26,8 +26,11 @@ public class ReviewDTO {
 	public ReviewDTO(Review entity) {
 		id = entity.getId();
 		text = entity.getText();
-		entity.getMovie();
-		entity.getUser();
+		movieId = entity.getMovie().getId(); 
+		userId = entity.getUser().getId();
+		userName = entity.getUser().getName();
+		userEmail = entity.getUser().getEmail();
+		
 	}
 
 	public ReviewDTO(Long id, String text, Long movieId, Long userId, String userName, String userEmail) {

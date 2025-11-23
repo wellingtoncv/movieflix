@@ -16,26 +16,34 @@ public class MovieCardDTO implements Serializable {
 	private String subTitle;
 	private Integer year;
 	private String imgUrl;
-	//private Set<GenreDTO> genres;
+	private String synopsis;
+	private GenreDTO genre; 
 	
 	private List<ReviewDTO> reviews = new ArrayList<>();
 
-	public MovieCardDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
+	// Construtor com todos os campos básicos e novos
+	public MovieCardDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, GenreDTO genre) {
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.year = year;
 		this.imgUrl = imgUrl;
+		this.synopsis = synopsis;
+		this.genre = genre;
 	}
 	
+	// Construtor a partir da Entidade Movie
 	public MovieCardDTO(Movie entity) {
 		id = entity.getId();
 		title = entity.getTitle();
 		subTitle = entity.getSubTitle();
 		year = entity.getYear();
 		imgUrl = entity.getImgUrl();
+		synopsis = entity.getSynopsis();
+		genre = new GenreDTO(entity.getGenre());
 	}
 	
+	 // Construtor com a Entidade e Reviews (como antes, mas usando o construtor Movie)
 	 public MovieCardDTO(Movie entity, Set<Review> reviews) {
 		this(entity);
 		reviews.forEach(cat -> this.reviews.add(new ReviewDTO(cat)));
@@ -81,12 +89,24 @@ public class MovieCardDTO implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 	
-	/*
-	public Set<GenreDTO> getGenres() {
-        return genres;
+	// <--- NOVO: Getters e Setters para Synopsis
+	public String getSynopsis() {
+		return synopsis;
 	}
-	*/
+
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
+	}
 	
+	// <--- NOVO: Getters e Setters para GenreDTO
+	public GenreDTO getGenre() {
+		return genre;
+	}
+
+	public void setGenre(GenreDTO genre) {
+		this.genre = genre;
+	}
+
 	public List<ReviewDTO> getReviews() {
 		return reviews;
 	}

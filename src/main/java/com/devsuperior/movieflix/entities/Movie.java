@@ -131,5 +131,10 @@ public class Movie implements Serializable {
         return Objects.hash(id);
     }
 
+	public Genre getGenre() {
+	
+		return genre;
+	}
+
 
 }
